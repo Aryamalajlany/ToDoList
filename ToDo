@@ -1,0 +1,95 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class class2 {
+
+    Scanner keyboard = new Scanner(System.in);
+    ArrayList<String> ToDoList = new ArrayList<>();
+    String username;
+
+    // Method to set the username
+    public void Setusername() {
+        System.out.print("Enter your username: ");
+        username = keyboard.nextLine();
+    }
+
+    // Method to get the username
+    public String getUserName() {
+        return username;
+    }
+
+    // Method to add a task
+    public void addtask() {
+        System.out.print("Enter a task: ");
+        String task = keyboard.nextLine();
+        ToDoList.add(task);
+        System.out.println("The task has been added successfully.");
+    }
+
+    // Method to display tasks
+    public void DisplayTask() {
+        if (ToDoList.isEmpty()) {
+            System.out.println("Your To-Do list is empty.");
+        } else {
+            System.out.println(username + "'s To-Do List:");
+            for (int i = 0; i < ToDoList.size(); i++) {
+                System.out.println((i + 1) + ". " + ToDoList.get(i));
+            }
+        }
+    }
+
+    // Method to remove a task
+    public void RemoveTask() {
+        if (ToDoList.isEmpty()) {
+            System.out.println("Your To-Do list is empty, there's nothing to remove.");
+            return;
+        }
+        System.out.print("Enter the task number to remove: ");
+        int taskno = keyboard.nextInt();
+        keyboard.nextLine(); 
+
+        if (taskno > 0 && taskno <= ToDoList.size()) {
+            String removedtask = ToDoList.remove(taskno - 1);
+            System.out.println("Removed task: " + removedtask);
+        } else {
+            System.out.println("Invalid input. Please try again.");
+        }
+    }
+
+
+    public static void main(String[] args) {
+        class2 app = new class2();
+        app.Setusername();
+        System.out.println("Welcome, " + app.getUserName() + "!");
+
+        int choice;
+        while (true) {
+            System.out.println("\nMenu:");
+            System.out.println("1. Add Task");
+            System.out.println("2. View To-Do List");
+            System.out.println("3. Remove Task");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+
+            choice = app.keyboard.nextInt();
+            app.keyboard.nextLine(); 
+
+            switch (choice) {
+                case 1:
+                    app.addtask();
+                    break;
+                case 2:
+                    app.DisplayTask();
+                    break;
+                case 3:
+                    app.RemoveTask();
+                    break;
+                case 4:
+                    System.out.println("Goodbye, " + app.getUserName() + "!");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}
